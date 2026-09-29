@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<!-- Khai báo loại tài liệu HTML5 -->
+<html lang="vi">
+<!-- Thẻ gốc, ngôn ngữ tiếng Việt -->
+<head>
+    <!-- Phần đầu tài liệu -->
+    <meta charset="UTF-8">
+    <!-- Khai báo bảng mã ký tự UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Cấu hình hiển thị responsive -->
+    <title>sexthu</title>
+    <!-- Tiêu đề tab trình duyệt đặt là sexthu -->
+    <style>
+        /* Bắt đầu khối CSS định dạng toàn cục */
+        * {
+            /* Chọn tất cả các thẻ */
+            margin: 0;
+            /* Xóa lề ngoài mặc định */
+            padding: 0;
+            /* Xóa lề trong mặc định */
+            box-sizing: border-box;
+            /* Tính kích thước bao gồm viền và lề trong */
+        }
+        body {
+            /* Chọn thẻ body */
+            background-color: #000000;
+            /* Nền màu đen tuyền */
+            font-family: Arial, sans-serif;
+            /* Phông chữ mặc định */
+            min-height: 100vh;
+            /* Chiều cao tối thiểu bằng khung nhìn */
+            overflow: hidden;
+            /* Ẩn thanh cuộn */
+        }
+        .bg-video {
+            /* Video nền không phủ kín */
+            position: fixed;
+            /* Cố định vị trí */
+            top: 50%;
+            /* Đặt tại giữa màn hình dọc */
+            left: 50%;
+            /* Đặt tại giữa màn hình ngang */
+            transform: translate(-50%, -50%);
+            /* Dịch ngược để căn chính xác tâm */
+            width: 70%;
+            /* Chiều rộng video bằng 70% khung nhìn */
+            height: auto;
+            /* Chiều cao tự động giữ tỷ lệ */
+            max-height: 70vh;
+            /* Chiều cao tối đa 70% khung nhìn */
+            border-radius: 20px;
+            /* Bo tròn góc video */
+            box-shadow: 0 0 40px #a020f0;
+            /* Hiệu ứng phát sáng tím */
+            object-fit: cover;
+            /* Cắt video vừa khung không méo */
+            z-index: -1;
+            /* Đẩy video xuống dưới nội dung */
+        }
+        .container {
+            /* Khối bao ngoài toàn bộ nội dung */
+            width: 100%;
+            /* Chiều rộng tối đa */
+            max-width: 600px;
+            /* Giới hạn chiều rộng trên desktop */
+            text-align: center;
+            /* Căn giữa toàn bộ chữ bên trong */
+            padding: 40px 20px;
+            /* Khoảng cách lề trong */
+            position: absolute;
+            /* Định vị tuyệt đối */
+            top: 50%;
+            /* Đặt tại giữa màn hình dọc */
+            left: 50%;
+            /* Đặt tại giữa màn hình ngang */
+            transform: translate(-50%, -50%);
+            /* Dịch ngược để căn chính xác tâm */
+        }
+        .click-title {
+            /* Tiêu đề CLICK chính giữa */
+            color: #ffffff;
+            /* Màu chữ trắng */
+            font-size: 90px;
+            /* Cỡ chữ lớn */
+            font-weight: 900;
+            /* Độ đậm tối đa */
+            letter-spacing: 8px;
+            /* Khoảng cách giữa các ký tự */
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 80px #aaaaaa;
+            /* Hiệu ứng phát sáng trắng */
+            cursor: pointer;
+            /* Đổi con trỏ khi rê chuột */
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+            /* Hiệu ứng chuyển động mượt */
+        }
+        .click-title:hover {
+            /* Trạng thái khi rê chuột vào */
+            transform: scale(1.1);
+            /* Phóng to nhẹ */
+            text-shadow: 0 0 15px #ffffff, 0 0 30px #ffffff, 0 0 60px #ffffff, 0 0 120px #cccccc;
+            /* Tăng độ sáng */
+        }
+        .click-sub {
+            /* Dòng chữ phụ bên dưới */
+            color: #666666;
+            /* Màu xám mờ */
+            font-size: 14px;
+            /* Cỡ chữ nhỏ */
+            letter-spacing: 6px;
+            /* Khoảng cách ký tự rộng */
+            text-transform: uppercase;
+            /* Chuyển toàn bộ thành chữ hoa */
+            margin-top: 20px;
+            /* Khoảng cách phía trên */
+        }
+        .about-section {
+            /* Khối nội dung ẩn hiện khi bấm */
+            display: none;
+            /* Ẩn mặc định */
+            margin-top: 40px;
+            /* Khoảng cách phía trên */
+            color: #ffffff;
+            /* Màu chữ trắng */
+        }
+        .about-section.active {
+            /* Trạng thái khi được kích hoạt */
+            display: block;
+            /* Hiển thị dạng khối */
+        }
+        .avatar-frame {
+            /* Khung tròn chứa ảnh đại diện */
+            width: 160px;
+            /* Chiều rộng khung */
+            height: 160px;
+            /* Chiều cao khung */
+            border-radius: 50%;
+            /* Bo tròn hoàn toàn */
+            overflow: hidden;
+            /* Cắt phần ảnh tràn ra ngoài */
+            margin: 0 auto 20px;
+            /* Căn giữa ngang, cách dưới 20px */
+            border: 3px solid #a020f0;
+            /* Viền tím */
+            box-shadow: 0 0 20px #a020f0, 0 0 40px #a020f0;
+            /* Hiệu ứng phát sáng tím */
+        }
+        .avatar-frame img {
+            /* Ảnh bên trong khung */
+            width: 100%;
+            /* Chiếm toàn bộ chiều rộng khung */
+            height: 100%;
+            /* Chiếm toàn bộ chiều cao khung */
+            object-fit: cover;
+            /* Cắt ảnh vừa khung không méo */
+        }
+        .name {
+            /* Tên hiển thị */
+            font-size: 32px;
+            /* Cỡ chữ lớn */
+            font-weight: bold;
+            /* In đậm */
+            margin-bottom: 5px;
+            /* Khoảng cách dưới */
+        }
+        .social-links {
+            /* Khối chứa các biểu tượng mạng xã hội */
+            display: flex;
+            /* Bật flexbox */
+            justify-content: center;
+            /* Căn giữa ngang */
+            gap: 20px;
+            /* Khoảng cách giữa các biểu tượng */
+            margin-top: 30px;
+            /* Khoảng cách trên */
+            margin-bottom: 30px;
+            /* Khoảng cách dưới */
+        }
+        .social-links a {
+            /* Các liên kết mạng xã hội */
+            display: flex;
+            /* Bật flexbox */
+            justify-content: center;
+            /* Căn giữa ngang */
+            align-items: center;
+            /* Căn giữa dọc */
+            width: 55px;
+            /* Chiều rộng nút */
+            height: 55px;
+            /* Chiều cao nút */
+            background-color: #ffffff;
+            /* Nền trắng */
+            border-radius: 50%;
+            /* Bo tròn */
+            text-decoration: none;
+            /* Xóa gạch chân */
+            font-size: 24px;
+            /* Cỡ chữ biểu tượng */
+            color: #000000;
+            /* Màu biểu tượng đen */
+            transition: transform 0.2s;
+            /* Hiệu ứng chuyển động */
+        }
+        .social-links a:hover {
+            /* Khi rê chuột */
+            transform: scale(1.15);
+            /* Phóng to */
+        }
+        .music-player {
+            /* Khung phát nhạc */
+            display: flex;
+            /* Bật flexbox */
+            align-items: center;
+            /* Căn giữa dọc */
+            gap: 15px;
+            /* Khoảng cách giữa ảnh và chữ */
+            background-color: #111111;
+            /* Nền xám đen */
+            border: 1px solid #333333;
+            /* Viền xám */
+            border-radius: 50px;
+            /* Bo tròn hai đầu */
+            padding: 10px 20px;
+            /* Khoảng cách lề trong */
+            width: 100%;
+            /* Chiếm toàn bộ chiều rộng */
+        }
+        .music-player img {
+            /* Ảnh bìa nhạc */
+            width: 50px;
+            /* Chiều rộng ảnh */
+            height: 50px;
+            /* Chiều cao ảnh */
+            border-radius: 50%;
+            /* Bo tròn */
+            object-fit: cover;
+            /* Cắt ảnh vừa khung */
+        }
+        .music-info {
+            /* Khối thông tin bài hát */
+            text-align: left;
+            /* Căn trái chữ */
+            flex: 1;
+            /* Chiếm toàn bộ không gian còn lại */
+        }
+        .music-title {
+            /* Tên bài hát */
+            color: #ffffff;
+            /* Màu trắng */
+            font-size: 15px;
+            /* Cỡ chữ vừa */
+            font-weight: bold;
+            /* In đậm */
+        }
+        .music-progress {
+            /* Thanh tiến trình phát nhạc */
+            width: 100%;
+            /* Chiếm toàn bộ chiều rộng */
+            height: 3px;
+            /* Chiều cao thanh */
+            background-color: #333333;
+            /* Nền xám */
+            border-radius: 3px;
+            /* Bo tròn */
+            margin-top: 8px;
+            /* Khoảng cách trên */
+            position: relative;
+            /* Định vị tương đối */
+        }
+        .music-progress::after {
+            /* Phần đã phát của thanh tiến trình */
+            content: "";
+            /* Nội dung rỗng */
+            position: absolute;
+            /* Định vị tuyệt đối */
+            top: 0;
+            /* Sát mép trên */
+            left: 0;
+            /* Sát mép trái */
+            width: 30%;
+            /* Chiều rộng phần đã phát */
+            height: 100%;
+            /* Chiếm toàn bộ chiều cao */
+            background-color: #ffffff;
+            /* Màu trắng */
+            border-radius: 3px;
+            /* Bo tròn */
+        }
+    </style>
+    <!-- Kết thúc khối CSS -->
+</head>
+<body>
+    <!-- Phần thân tài liệu -->
+
+    <video class="bg-video" autoplay muted loop playsinline id="bgVideo">
+        <!-- Video nền tự động phát, tắt tiếng, lặp vô hạn -->
+        <source src="https://www.image2url.com/r2/default/videos/1790688650261-9e63fd8b-d632-4d2b-8892-b92af21d6fb0.mp4" type="video/mp4">
+        <!-- Nguồn video MP4 -->
+    </video>
+    <!-- Kết thúc video nền -->
+
+    <div class="container">
+        <!-- Khối bao ngoài toàn bộ nội dung -->
+
+        <div id="clickScreen">
+            <!-- Màn hình chính hiển thị chữ CLICK -->
+            <h1 class="click-title" onclick="showAbout()">CLICK</h1>
+            <!-- Tiêu đề CLICK, gọi hàm showAbout khi bấm -->
+            <p class="click-sub">BẤM VÔ ĐỂ XEM ABOUT</p>
+            <!-- Dòng chữ phụ hướng dẫn -->
+        </div>
+        <!-- Kết thúc màn hình chính -->
+
+        <div id="aboutScreen" class="about-section">
+            <!-- Màn hình about, ẩn mặc định -->
+
+            <div class="avatar-frame">
+                <!-- Khung ảnh đại diện -->
+                <img src="https://www.image2url.com/r2/default/gifs/1790687929591-12aa3bfd-c631-4c03-a86d-5a375dd928b2.gif" alt="avatar">
+                <!-- Ảnh GIF đại diện -->
+            </div>
+            <!-- Kết thúc khung ảnh -->
+
+            <h2 class="name">Haru</h2>
+            <!-- Tên hiển thị -->
+
+            <div class="social-links">
+                <!-- Khối biểu tượng mạng xã hội -->
+                <a href="#" title="Discord">💬</a>
+                <!-- Liên kết Discord -->
+                <a href="#" title="Facebook">f</a>
+                <!-- Liên kết Facebook -->
+                <a href="#" title="Spotify">♫</a>
+                <!-- Liên kết Spotify -->
+            </div>
+            <!-- Kết thúc khối mạng xã hội -->
+
+            <div class="music-player">
+                <!-- Khung phát nhạc -->
+                <img src="https://www.image2url.com/r2/default/gifs/1790687929591-12aa3bfd-c631-4c03-a86d-5a375dd928b2.gif" alt="cover">
+                <!-- Ảnh bìa nhạc -->
+                <div class="music-info">
+                    <!-- Khối thông tin bài hát -->
+                    <div class="music-title">Hoa nở không màu — Hoài Lâm</div>
+                    <!-- Tên bài hát và ca sĩ -->
+                    <div class="music-progress"></div>
+                    <!-- Thanh tiến trình phát nhạc -->
+                </div>
+                <!-- Kết thúc khối thông tin -->
+            </div>
+            <!-- Kết thúc khung phát nhạc -->
+
+        </div>
+        <!-- Kết thúc màn hình about -->
+
+    </div>
+    <!-- Kết thúc khối bao ngoài -->
+
+    <script>
+        // Bắt đầu khối JavaScript
+        function showAbout() {
+            // Hàm hiển thị màn hình about
+            var v = document.getElementById("bgVideo");
+            // Lấy thẻ video nền theo id
+            v.muted = false;
+            // Tắt chế độ tắt tiếng
+            v.volume = 1.0;
+            // Đặt âm lượng tối đa
+            v.play();
+            // Phát video kèm tiếng
+            document.getElementById("clickScreen").style.display = "none";
+            // Ẩn màn hình chữ CLICK
+            document.getElementById("aboutScreen").classList.add("active");
+            // Hiện màn hình about
+        }
+        // Kết thúc hàm
+    </script>
+    <!-- Kết thúc khối JavaScript -->
+</body>
+</html>
